@@ -86,6 +86,13 @@ class ETTrainer:
             print(" ")
         print("Done.")
 
+        loss_values_file =  'loss_values.txt'
+        with open(loss_values_file, 'w') as file:
+            file.write(f"Dataset: {self.hyper_params.dataset}")
+            file.write("Epoch | Train Loss | Validation Loss\n")
+            for epoch in range(len(self.log['train_loss'])):
+                file.write(f"{epoch},{self.log['train_loss'][epoch]},{self.log['val_loss'][epoch]}\n")
+
     def reset_metric(self):
         self.stats_func = {'ADE': compute_batch_ade, 'FDE': compute_batch_fde,
                            'TCC': compute_batch_tcc, 'COL': compute_batch_col}
